@@ -3,7 +3,7 @@ all: main
 main:
 	g++ main.cpp -o myApp -lglut -lGLU -lGL
 
-run:
+run: all
 	./myApp
 
 clean:
