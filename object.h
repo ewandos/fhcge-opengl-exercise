@@ -13,6 +13,8 @@ public:
   // add vector to current coordinates
   void move(std::vector<double> update);
 
+  void setLoc(void);
+
   // some function to update velocity (based on acceleration?)
   // some function to update acceleration
 

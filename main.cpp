@@ -1,4 +1,5 @@
 #include <GL/glut.h>
+#include "ppUtility.h"
 
 int window;
 
@@ -26,6 +27,7 @@ void display() {
   glVertex3f( 1.0f,-1.0f, 0.0f);
   glVertex3f(-1.0f,-1.0f, 0.0f);
   glEnd();
+
 
   /*
   glTranslatef(3.0f,0.0f,0.0f);
@@ -60,6 +62,14 @@ void init(int width, int height) {
 }
 
 int main(int argc, char **argv) {
+
+  ppPoint point1 = ppPoint();
+  ppPoint point2 = ppPoint(1.0f, 3.0f, 2.0f);
+
+  point1.describe();
+  point2.describe();
+
+
   // Initialize Library
   glutInit(&argc, argv);
 

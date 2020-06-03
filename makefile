@@ -1,7 +1,7 @@
 all: main
 
 main:
-	g++ main.cpp -o myApp -lglut -lGLU -lGL
+	g++ main.cpp ppUtility.h -o myApp -lglut -lGLU -lGL
 
 run: all
 	./myApp
