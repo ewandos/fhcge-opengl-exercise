@@ -1,7 +1,68 @@
 #include <GL/glut.h>
 #include "ppUtility.h"
+#include "ppShape.h"
+#include "ppObject.h"
 
 int window;
+
+// this function needs to be implemented as a constructor (ppObject polymorphism)
+ppObject createTestCube() {
+  // create vector for segments
+  std::vector<ppSegment> segments;
+  // create segments
+  // create vectors for points
+  std::vector<ppPoint> front;
+  front.push_back(ppPoint(0.0f, 0.0f, 0.0f));
+  front.push_back(ppPoint(1.0f, 0.0f, 0.0f));
+  front.push_back(ppPoint(1.0f, 1.0f, 0.0f));
+  front.push_back(ppPoint(0.0f, 1.0f, 0.0f));
+
+  std::vector<ppPoint> back;
+  back.push_back(ppPoint(0.0f, 0.0f, 1.0f));
+  back.push_back(ppPoint(1.0f, 0.0f, 1.0f));
+  back.push_back(ppPoint(1.0f, 1.0f, 1.0f));
+  back.push_back(ppPoint(0.0f, 1.0f, 1.0f));
+
+  std::vector<ppPoint> left;
+  left.push_back(ppPoint(1.0f, 0.0f, 0.0f));
+  left.push_back(ppPoint(1.0f, 0.0f, 1.0f));
+  left.push_back(ppPoint(1.0f, 1.0f, 1.0f));
+  left.push_back(ppPoint(1.0f, 1.0f, 0.0f));
+
+  std::vector<ppPoint> right;
+  right.push_back(ppPoint(0.0f, 0.0f, 0.0f));
+  right.push_back(ppPoint(0.0f, 0.0f, 1.0f));
+  right.push_back(ppPoint(0.0f, 1.0f, 1.0f));
+  right.push_back(ppPoint(0.0f, 1.0f, 0.0f));
+
+  std::vector<ppPoint> top;
+  top.push_back(ppPoint(0.0f, 1.0f, 0.0f));
+  top.push_back(ppPoint(0.0f, 1.0f, 1.0f));
+  top.push_back(ppPoint(1.0f, 1.0f, 1.0f));
+  top.push_back(ppPoint(1.0f, 1.0f, 0.0f));
+
+  std::vector<ppPoint> bottom;
+  bottom.push_back(ppPoint(0.0f, 0.0f, 0.0f));
+  bottom.push_back(ppPoint(1.0f, 0.0f, 0.0f));
+  bottom.push_back(ppPoint(1.0f, 0.0f, 1.0f));
+  bottom.push_back(ppPoint(0.0f, 0.0f, 1.0f));
+
+  // add to segments vector
+  segments.push_back(ppSegment(GL_QUADS, "front", front));
+  segments.push_back(ppSegment(GL_QUADS, "back", back));
+  segments.push_back(ppSegment(GL_QUADS, "left", left));
+  segments.push_back(ppSegment(GL_QUADS, "right", right));
+  segments.push_back(ppSegment(GL_QUADS, "top", top));
+  segments.push_back(ppSegment(GL_QUADS, "bottom", bottom));
+
+  // create shape
+  ppShape* cubeShape = new ppShape("cubeShape", segments);
+
+  // create object
+  ppObject cube = ppObject("cube", cubeShape);
+
+  return cube;
+}
 
 void resize(int width, int height)
 {
@@ -16,21 +77,27 @@ void resize(int width, int height)
 }
 
 void display() {
-  glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+
+  // creating test cube
+  ppObject cube = createTestCube();
+
+  // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glLoadIdentity();
 
-  glTranslatef(-2.0f, -2.0f, -5.0f);
+  glTranslatef(-2.0f, -1.5f, -6.0f);
 
+  cube.draw();
+
+  /*
   glBegin(GL_POLYGON);
   glVertex3f( 0.0f, 1.0f, 0.0f);
   glVertex3f( 1.0f,-1.0f, 0.0f);
   glVertex3f(-1.0f,-1.0f, 0.0f);
   glEnd();
 
-
-  /*
   glTranslatef(3.0f,0.0f,0.0f);
+
 
   glBegin(GL_QUADS);
   glVertex3f(-1.0f, 1.0f, 0.0f);
@@ -39,7 +106,6 @@ void display() {
   glVertex3f(-1.0f,-1.0f, 0.0f);
   glEnd();
   */
-
 
   glutSwapBuffers();
 }
@@ -62,14 +128,6 @@ void init(int width, int height) {
 }
 
 int main(int argc, char **argv) {
-
-  ppPoint point1 = ppPoint();
-  ppPoint point2 = ppPoint(1.0f, 3.0f, 2.0f);
-
-  point1.describe();
-  point2.describe();
-
-
   // Initialize Library
   glutInit(&argc, argv);
 

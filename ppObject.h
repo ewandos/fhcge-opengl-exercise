@@ -1,19 +1,30 @@
-#ifndef OBJECT_POLYGON
-#define OBJECT_POLYGON
+#include "ppShape.h"
+#include <GL/glut.h>
 
-class Object {
+#ifndef PP_OBJECT
+#define PP_OBJECT
+
+class ppObject {
 private:
-  std::vector<double> coordinates;
-  std::vector<double> velocity;
-  std::vector<double> acceleration;
+  std::string name;
+  ppShape* shape;
+
+  // std::vector<double> coordinates;
+  // std::vector<double> velocity;
+  // std::vector<double> acceleration;
 public:
+  ppObject(std::string name, ppShape* shape);
+
+  std::string getName();
+  void draw();
+
   // spawn object at x, y, z and set shape
-  Object(std::vector<double> location, matrix vertices);
+  //Object(std::vector<double> location, matrix vertices);
 
   // add vector to current coordinates
-  void move(std::vector<double> update);
+  // void move(std::vector<double> update);
 
-  void setLoc(void);
+  //void setLoc(void);
 
   // some function to update velocity (based on acceleration?)
   // some function to update acceleration
