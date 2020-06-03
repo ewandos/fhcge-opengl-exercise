@@ -1,4 +1,4 @@
-#include "ppUtility.h"
+#include "pp3dLib.h"
 
 // ---------- ppPoint ----------
 
@@ -46,4 +46,19 @@ std::string ppSegment::getName() {
 
 std::vector<ppPoint> ppSegment::getPoints() {
   return this->points;
+}
+
+// ---------- ppShape ----------
+
+ppShape::ppShape(std::string name, std::vector<ppSegment> segments) {
+  this->name = name;
+  this->segments = segments;
+}
+
+std::string ppShape::getName() {
+  return this->name;
+}
+
+std::vector<ppSegment> ppShape::getSegments() {
+  return this->segments;
 }

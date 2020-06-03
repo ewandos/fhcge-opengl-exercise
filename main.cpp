@@ -1,6 +1,5 @@
 #include <GL/glut.h>
-#include "ppUtility.h"
-#include "ppShape.h"
+#include "pp3dLib.h"
 #include "ppObject.h"
 
 int window;

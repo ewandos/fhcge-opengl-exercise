@@ -1,4 +1,4 @@
-#include "ppShape.h"
+#include "pp3dLib.h"
 #include <GL/glut.h>
 
 #ifndef PP_OBJECT
