@@ -14,6 +14,7 @@ public:
   ppPoint();
   ppPoint(double x, double y, double z);
 
+  ppPoint operator+(const ppPoint& p);
   void describe();
 };
 

@@ -20,6 +20,14 @@ void ppPoint::describe() {
   std::cout << "z: " << this->z << std::endl;
 }
 
+ppPoint ppPoint::operator+(const ppPoint& p) {
+   ppPoint point;
+   point.x = this->x + p.x;
+   point.y = this->y + p.y;
+   point.z = this->z + p.z;
+   return point;
+}
+
 // ---------- ppSegment ----------
 
 ppSegment::ppSegment(GLenum mode, std::string name, std::vector<ppPoint> points) {
