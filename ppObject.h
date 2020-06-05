@@ -8,10 +8,9 @@ class ppObject {
 private:
   std::string name;
   ppShape* shape;
-
   ppPosition position;
-  // std::vector<double> velocity;
-  // std::vector<double> acceleration;
+  // ppVector velocity;
+  // ppVector acceleration;
 public:
   ppObject(std::string name, ppShape* shape);
 
@@ -21,8 +20,6 @@ public:
 
   void setPosition(ppPosition pos);
   ppPosition getPosition();
-
-  void draw();
   void rotateAround(ppObject parent, double d);
   /*
   translate toward parent's coordinates
