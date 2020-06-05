@@ -17,7 +17,10 @@ public:
 
   std::string getName();
 
+  ppShape* getShape();
+
   void setPosition(ppPosition pos);
+  ppPosition getPosition();
 
   void draw();
   void rotateAround(ppObject parent, double d);

@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include "pp3dLib.h"
 #include "ppObject.h"
+#include "ppRenderer.h"
 
 int window;
 
@@ -77,31 +78,15 @@ void resize(int width, int height)
 }
 
 void display() {
+  ppRenderer renderer;
+
   // creating test cube
   ppObject cube = createTestCube();
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  cube.draw();
-
-  /*
-  glBegin(GL_POLYGON);
-  glVertex3f( 0.0f, 1.0f, 0.0f);
-  glVertex3f( 1.0f,-1.0f, 0.0f);
-  glVertex3f(-1.0f,-1.0f, 0.0f);
-  glEnd();
-
-  glTranslatef(3.0f,0.0f,0.0f);
-
-
-  glBegin(GL_QUADS);
-  glVertex3f(-1.0f, 1.0f, 0.0f);
-  glVertex3f( 1.0f, 1.0f, 0.0f);
-  glVertex3f( 1.0f,-1.0f, 0.0f);
-  glVertex3f(-1.0f,-1.0f, 0.0f);
-  glEnd();
-  */
+  renderer.draw(cube);
 
   glutSwapBuffers();
 }
