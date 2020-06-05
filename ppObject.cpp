@@ -5,6 +5,10 @@ ppObject::ppObject(std::string name, ppShape* shape) {
   this->shape = shape;
 }
 
+void ppObject::setPosition(ppPosition pos) {
+  this->position = pos;
+}
+
 std::string ppObject::getName() {
   return this->name;
 }
@@ -13,17 +17,16 @@ std::string ppObject::getName() {
 void ppObject::draw() {
   // get segments of shape
   std::vector<ppSegment> segments = this->shape->getSegments();
-  // LOAD IDENTITY CAN ONLY WORK HERE IF glTranslatef HAPPENS HERE!!!!!!!!
-  // glLoadIdentity();
-  // iterate over segments
-  for(auto seg = std::begin(segments); seg != std::end(segments); ++seg) {
+  glLoadIdentity();
+  glTranslatef(this->position.x, this->position.y, this->position.z);
+  for(auto seg : segments) {
     // get points of segment
-    std::vector<ppPosition> points = seg->getPoints();
+    std::vector<ppPosition> positions = seg.getPositions();
     // begin drawing
-    glBegin(seg->getMode());
-    // iterate over points
-    for(auto pt = std::begin(points); pt != std::end(points); ++pt) {
-      glVertex3f(pt->x, pt->y, pt->z);
+    glBegin(seg.getMode());
+    // iterate over positions
+    for(auto pos : positions) {
+      glVertex3f(pos.x, pos.y, pos.z);
     }
     // end drawing
     glEnd();

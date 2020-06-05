@@ -59,6 +59,7 @@ ppObject createTestCube() {
 
   // create object
   ppObject cube = ppObject("cube", cubeShape);
+  cube.setPosition(ppPosition(-1.5f, -2.0f, -6.0f));
 
   return cube;
 }
@@ -76,15 +77,11 @@ void resize(int width, int height)
 }
 
 void display() {
-
   // creating test cube
   ppObject cube = createTestCube();
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glLoadIdentity();
-
-  glTranslatef(-2.0f, -1.5f, -6.0f);
 
   cube.draw();
 

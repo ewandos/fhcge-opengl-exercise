@@ -52,10 +52,10 @@ ppVector ppVector::operator*(const ppVector& v) {
 
 // ---------- ppSegment ----------
 
-ppSegment::ppSegment(GLenum mode, std::string name, std::vector<ppPosition> points) {
+ppSegment::ppSegment(GLenum mode, std::string name, std::vector<ppPosition> positions) {
   this->mode = mode;
   this->name = name;
-  this->points = points;
+  this->positions = positions;
 }
 
 GLenum ppSegment::getMode() {
@@ -66,8 +66,8 @@ std::string ppSegment::getName() {
   return this->name;
 }
 
-std::vector<ppPosition> ppSegment::getPoints() {
-  return this->points;
+std::vector<ppPosition> ppSegment::getPositions() {
+  return this->positions;
 }
 
 // ---------- ppShape ----------

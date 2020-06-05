@@ -9,14 +9,24 @@ private:
   std::string name;
   ppShape* shape;
 
-  // std::vector<double> coordinates;
+  ppPosition position;
   // std::vector<double> velocity;
   // std::vector<double> acceleration;
 public:
   ppObject(std::string name, ppShape* shape);
 
   std::string getName();
+
+  void setPosition(ppPosition pos);
+
   void draw();
+  void rotateAround(ppObject parent, double d);
+  /*
+  translate toward parent's coordinates
+  rotate around parent
+
+  call draw
+  */
 
   // spawn object at x, y, z and set shape
   //Object(std::vector<double> location, matrix vertices);

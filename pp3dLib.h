@@ -39,14 +39,14 @@ class ppSegment {
 private:
   GLenum mode; // type of segment (needed by openGL)
   std::string name; // name to identify for example sides of a cube
-  std::vector<ppPosition> points;  // dynamic list of points of segment
+  std::vector<ppPosition> positions;  // dynamic list of points of segment
 
 public:
-  ppSegment(GLenum mode, std::string name, std::vector<ppPosition> points);
+  ppSegment(GLenum mode, std::string name, std::vector<ppPosition> positions);
 
   GLenum getMode();
   std::string getName();
-  std::vector<ppPosition> getPoints();
+  std::vector<ppPosition> getPositions();
 };
 
 #endif
