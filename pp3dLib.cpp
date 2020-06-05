@@ -15,17 +15,39 @@ ppPoint::ppPoint(double x, double y, double z) {
 }
 
 void ppPoint::describe() {
-  std::cout << "x: " << this->x << std::endl;
-  std::cout << "y: " << this->y << std::endl;
-  std::cout << "z: " << this->z << std::endl;
+  std::cout << "x:" << this->x << ", ";
+  std::cout << "y:" << this->y << ", ";
+  std::cout << "z:" << this->z << std::endl;
 }
 
-ppPoint ppPoint::operator+(const ppPoint& p) {
-   ppPoint point;
-   point.x = this->x + p.x;
-   point.y = this->y + p.y;
-   point.z = this->z + p.z;
-   return point;
+// ---------- ppVector ----------
+
+ppVector::ppVector() : ppPoint() {}
+
+ppVector::ppVector(double x, double y, double z) : ppPoint(x, y, z) {}
+
+ppVector ppVector::operator+(const ppVector& v) {
+   ppVector vector;
+   vector.x = this->x + v.x;
+   vector.y = this->y + v.y;
+   vector.z = this->z + v.z;
+   return vector;
+}
+
+ppVector ppVector::operator-(const ppVector& v) {
+    ppVector vector;
+    vector.x = this->x - v.x;
+    vector.y = this->y - v.y;
+    vector.z = this->z - v.z;
+    return vector;
+}
+
+ppVector ppVector::operator*(const ppVector& v) {
+    ppVector vector;
+    vector.x = this->x * v.x;
+    vector.y = this->y * v.y;
+    vector.z = this->z * v.z;
+    return vector;
 }
 
 // ---------- ppSegment ----------

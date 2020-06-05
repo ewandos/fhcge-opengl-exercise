@@ -6,16 +6,29 @@
 #define PP_POINT
 
 class ppPoint {
-public:
+protected:
   double x;
   double y;
   double z;
 
+public:
   ppPoint();
   ppPoint(double x, double y, double z);
-
-  ppPoint operator+(const ppPoint& p);
   void describe();
+};
+
+#endif
+
+#ifndef PP_VECTOR
+#define PP_VECTOR
+
+class ppVector : public ppPoint {
+public:
+  ppVector();
+  ppVector(double x, double y, double z);
+  ppVector operator+(const ppVector& v);
+  ppVector operator-(const ppVector& v);
+  ppVector operator*(const ppVector& v);
 };
 
 #endif
