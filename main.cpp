@@ -78,8 +78,8 @@ void resize(int width, int height)
 }
 
 void display() {
-  ppRenderer renderer;
 
+  ppRenderer renderer = ppRenderer();
   // creating test cube
   ppObject cube = createTestCube();
 
@@ -87,6 +87,25 @@ void display() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   renderer.draw(cube);
+  //renderer.draw(cube, new ppPosition(-2.0f, -1.0f, -5.0f));
+
+  /*
+  glBegin(GL_POLYGON);
+  glVertex3f( 0.0f, 1.0f, 0.0f);
+  glVertex3f( 1.0f,-1.0f, 0.0f);
+  glVertex3f(-1.0f,-1.0f, 0.0f);
+  glEnd();
+
+  glTranslatef(3.0f,0.0f,0.0f);
+
+
+  glBegin(GL_QUADS);
+  glVertex3f(-1.0f, 1.0f, 0.0f);
+  glVertex3f( 1.0f, 1.0f, 0.0f);
+  glVertex3f( 1.0f,-1.0f, 0.0f);
+  glVertex3f(-1.0f,-1.0f, 0.0f);
+  glEnd();
+  */
 
   glutSwapBuffers();
 }

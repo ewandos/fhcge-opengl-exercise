@@ -7,6 +7,7 @@
 class ppRenderer {
 public:
   void draw(ppObject obj);
+  void draw(ppObject obj, ppPosition* p);
 };
 
 #endif
