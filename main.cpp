@@ -2,68 +2,9 @@
 #include "pp3dLib.h"
 #include "ppObject.h"
 #include "ppRenderer.h"
+#include "ppShapeFactory.h"
 
 int window;
-
-// this function needs to be implemented as a constructor (ppObject polymorphism)
-ppObject createTestCube() {
-  // create vector for segments
-  std::vector<ppSegment> segments;
-  // create segments
-  // create vectors for points
-  std::vector<ppPosition> front;
-  front.push_back(ppPosition(0.0f, 0.0f, 0.0f));
-  front.push_back(ppPosition(1.0f, 0.0f, 0.0f));
-  front.push_back(ppPosition(1.0f, 1.0f, 0.0f));
-  front.push_back(ppPosition(0.0f, 1.0f, 0.0f));
-
-  std::vector<ppPosition> back;
-  back.push_back(ppPosition(0.0f, 0.0f, 1.0f));
-  back.push_back(ppPosition(1.0f, 0.0f, 1.0f));
-  back.push_back(ppPosition(1.0f, 1.0f, 1.0f));
-  back.push_back(ppPosition(0.0f, 1.0f, 1.0f));
-
-  std::vector<ppPosition> left;
-  left.push_back(ppPosition(1.0f, 0.0f, 0.0f));
-  left.push_back(ppPosition(1.0f, 0.0f, 1.0f));
-  left.push_back(ppPosition(1.0f, 1.0f, 1.0f));
-  left.push_back(ppPosition(1.0f, 1.0f, 0.0f));
-
-  std::vector<ppPosition> right;
-  right.push_back(ppPosition(0.0f, 0.0f, 0.0f));
-  right.push_back(ppPosition(0.0f, 0.0f, 1.0f));
-  right.push_back(ppPosition(0.0f, 1.0f, 1.0f));
-  right.push_back(ppPosition(0.0f, 1.0f, 0.0f));
-
-  std::vector<ppPosition> top;
-  top.push_back(ppPosition(0.0f, 1.0f, 0.0f));
-  top.push_back(ppPosition(0.0f, 1.0f, 1.0f));
-  top.push_back(ppPosition(1.0f, 1.0f, 1.0f));
-  top.push_back(ppPosition(1.0f, 1.0f, 0.0f));
-
-  std::vector<ppPosition> bottom;
-  bottom.push_back(ppPosition(0.0f, 0.0f, 0.0f));
-  bottom.push_back(ppPosition(1.0f, 0.0f, 0.0f));
-  bottom.push_back(ppPosition(1.0f, 0.0f, 1.0f));
-  bottom.push_back(ppPosition(0.0f, 0.0f, 1.0f));
-
-  // add to segments vector
-  segments.push_back(ppSegment(GL_QUADS, "front", front));
-  segments.push_back(ppSegment(GL_QUADS, "back", back));
-  segments.push_back(ppSegment(GL_QUADS, "left", left));
-  segments.push_back(ppSegment(GL_QUADS, "right", right));
-  segments.push_back(ppSegment(GL_QUADS, "top", top));
-  segments.push_back(ppSegment(GL_QUADS, "bottom", bottom));
-
-  // create shape
-  ppShape* cubeShape = new ppShape("cubeShape", segments);
-
-  // create object
-  ppObject cube = ppObject("cube", cubeShape);
-  cube.setPosition(ppPosition(-1.5f, -2.0f, -6.0f));
-
-  return cube;
-}
 
 void resize(int width, int height)
 {
@@ -79,43 +20,27 @@ void resize(int width, int height)
 
 void display() {
 
-  ppRenderer renderer = ppRenderer();
+  ppRenderer renderer;
   // creating test cube
-  ppObject cube = createTestCube();
+
+  ppShapeFactory factory;
+
+  ppObject cube = ppObject("cube", factory.getCube(1.0f));
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   renderer.draw(cube);
-  //renderer.draw(cube, new ppPosition(-2.0f, -1.0f, -5.0f));
-
-  /*
-  glBegin(GL_POLYGON);
-  glVertex3f( 0.0f, 1.0f, 0.0f);
-  glVertex3f( 1.0f,-1.0f, 0.0f);
-  glVertex3f(-1.0f,-1.0f, 0.0f);
-  glEnd();
-
-  glTranslatef(3.0f,0.0f,0.0f);
-
-
-  glBegin(GL_QUADS);
-  glVertex3f(-1.0f, 1.0f, 0.0f);
-  glVertex3f( 1.0f, 1.0f, 0.0f);
-  glVertex3f( 1.0f,-1.0f, 0.0f);
-  glVertex3f(-1.0f,-1.0f, 0.0f);
-  glEnd();
-  */
 
   glutSwapBuffers();
 }
 
-void keyPressed(unsigned char key, int x, int y)
-{
+void keyPressed(unsigned char key, int x, int y) {
   if (key == 27)  {
     glutDestroyWindow(window);
     exit(0);
   }
+
 }
 
 void init(int width, int height) {

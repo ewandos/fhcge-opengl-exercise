@@ -3,6 +3,7 @@
 ppObject::ppObject(std::string name, ppShape* shape) {
   this->name = name;
   this->shape = shape;
+  this->position = ppPosition();
 }
 
 ppShape* ppObject::getShape() {
