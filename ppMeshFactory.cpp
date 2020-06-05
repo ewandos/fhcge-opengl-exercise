@@ -1,8 +1,8 @@
-#include "ppShapeFactory.h"
+#include "ppMeshFactory.h"
 
-ppShape* ppShapeFactory::getCube(double length) {
-  std::vector<ppSegment> segments;
-  // create segments
+ppMesh* ppMeshFactory::getCube(double length) {
+  std::vector<ppFace> faces;
+  // create faces
   // create vectors for points
   std::vector<ppPosition> front;
   front.push_back(ppPosition(-length, -length, length));
@@ -40,14 +40,14 @@ ppShape* ppShapeFactory::getCube(double length) {
   bottom.push_back(ppPosition(length, length, -length));
   bottom.push_back(ppPosition(length, -length, -length));
 
-  // add to segments vector
-  segments.push_back(ppSegment(GL_QUADS, "front", front));
-  segments.push_back(ppSegment(GL_QUADS, "back", back));
-  segments.push_back(ppSegment(GL_QUADS, "left", left));
-  segments.push_back(ppSegment(GL_QUADS, "right", right));
-  segments.push_back(ppSegment(GL_QUADS, "top", top));
-  segments.push_back(ppSegment(GL_QUADS, "bottom", bottom));
+  // add to faces vector
+  faces.push_back(ppFace(GL_QUADS, "front", front));
+  faces.push_back(ppFace(GL_QUADS, "back", back));
+  faces.push_back(ppFace(GL_QUADS, "left", left));
+  faces.push_back(ppFace(GL_QUADS, "right", right));
+  faces.push_back(ppFace(GL_QUADS, "top", top));
+  faces.push_back(ppFace(GL_QUADS, "bottom", bottom));
 
-  // create shape
-  return new ppShape("cube", segments);
+  // create mesh
+  return new ppMesh("cube", faces);
 }

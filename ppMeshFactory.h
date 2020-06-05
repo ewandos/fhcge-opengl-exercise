@@ -3,9 +3,9 @@
 #ifndef PP_SHAPE_FACTORY
 #define PP_SHAPE_FACTORY
 
-class ppShapeFactory {
+class ppMeshFactory {
 public:
-  ppShape* getCube(double length);
+  ppMesh* getCube(double length);
 };
 
 #endif

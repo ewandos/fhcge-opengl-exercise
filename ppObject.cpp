@@ -1,13 +1,13 @@
 #include "ppObject.h"
 
-ppObject::ppObject(std::string name, ppShape* shape) {
+ppObject::ppObject(std::string name, ppMesh* mesh) {
   this->name = name;
-  this->shape = shape;
+  this->mesh = mesh;
   this->position = ppPosition();
 }
 
-ppShape* ppObject::getShape() {
-  return this->shape;
+ppMesh* ppObject::getMesh() {
+  return this->mesh;
 }
 
 void ppObject::setPosition(ppPosition pos) {

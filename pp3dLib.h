@@ -50,18 +50,18 @@ public:
 #define PP_SEGMENT
 
 /*
- * Stores multiple ppPositions that form a chosen segment of a ppShape.
- * A segment can be something like a 2d quad or a triangle in 3d space.
- * Such quad or triangle will be merged to a shape (e.g. a qube).
+ * Stores multiple ppPositions that form a chosen face of a ppMesh.
+ * A face can be something like a 2d quad or a triangle in 3d space.
+ * Such quad or triangle will be merged to a mesh (e.g. a qube).
  */
-class ppSegment {
+class ppFace {
 private:
-  GLenum mode; // type of segment (needed by openGL)
+  GLenum mode; // type of face (needed by openGL)
   std::string name; // name to identify for example sides of a cube
-  std::vector<ppPosition> positions;  // dynamic list of points of segment
+  std::vector<ppPosition> positions;  // dynamic list of points of face
 
 public:
-  ppSegment(GLenum mode, std::string name, std::vector<ppPosition> positions);
+  ppFace(GLenum mode, std::string name, std::vector<ppPosition> positions);
 
   GLenum getMode();
   std::string getName();
@@ -74,19 +74,19 @@ public:
 #define PP_SHAPE
 
 /*
- * Stores multiple ppSegments to form a shape of an object.
- * A shape can be something like a 3d cube in 3d space.
+ * Stores multiple ppFaces to form a mesh of an object.
+ * A mesh can be something like a 3d cube in 3d space.
  */
-class ppShape {
+class ppMesh {
 private:
   std::string name;
-  std::vector<ppSegment> segments;
+  std::vector<ppFace> faces;
 
 public:
-  ppShape(std::string name, std::vector<ppSegment>);
+  ppMesh(std::string name, std::vector<ppFace>);
 
   std::string getName();
-  std::vector<ppSegment> getSegments();
+  std::vector<ppFace> getFaces();
 
 };
 

@@ -2,7 +2,7 @@
 #include "pp3dLib.h"
 #include "ppObject.h"
 #include "ppRenderer.h"
-#include "ppShapeFactory.h"
+#include "ppMeshFactory.h"
 
 int window;
 
@@ -11,7 +11,7 @@ void resize(int width, int height)
   // prevent division by zero
   if (height == 0) { height=1; }
 
-  glViewport(200, 200, width, height);
+  glViewport(0, 0, width, height);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(45.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
@@ -23,9 +23,10 @@ void display() {
   ppRenderer renderer;
   // creating test cube
 
-  ppShapeFactory factory;
+  ppMeshFactory factory;
 
   ppObject cube = ppObject("cube", factory.getCube(1.0f));
+  cube.setPosition(ppPosition(2.0f, 2.0f, -10.0f));
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

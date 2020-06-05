@@ -7,16 +7,16 @@
 class ppObject {
 private:
   std::string name;
-  ppShape* shape;
+  ppMesh* mesh;
   ppPosition position;
   // ppVector velocity;
   // ppVector acceleration;
 public:
-  ppObject(std::string name, ppShape* shape);
+  ppObject(std::string name, ppMesh* mesh);
 
   std::string getName();
 
-  ppShape* getShape();
+  ppMesh* getMesh();
 
   void setPosition(ppPosition pos);
   ppPosition getPosition();
@@ -28,7 +28,7 @@ public:
   call draw
   */
 
-  // spawn object at x, y, z and set shape
+  // spawn object at x, y, z and set mesh
   //Object(std::vector<double> location, matrix vertices);
 
   // add vector to current coordinates
@@ -39,13 +39,13 @@ public:
   // some function to update velocity (based on acceleration?)
   // some function to update acceleration
 
-  // some function to manipulate object's shape
+  // some function to manipulate object's mesh
 
   /*
   some function to draw the object
   this includes resetting to the identity matrix,
   translating based on the current coordinates
-  and then drawing a polygon based on the object's shape
+  and then drawing a polygon based on the object's mesh
   */
 };
 

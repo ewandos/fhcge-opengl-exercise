@@ -12,12 +12,12 @@ void ppRenderer::draw(ppObject obj, ppPosition* p) {
   glLoadIdentity();
   glTranslatef(pos.x, pos.y, pos.z);
 
-  // get segments of shape
-  std::vector<ppSegment> segments = obj.getShape()->getSegments();
+  // get faces of mesh
+  std::vector<ppFace> faces = obj.getMesh()->getFaces();
 
-  // iterate over segments
-  for(auto seg : segments) {
-    // get points of segment
+  // iterate over faces
+  for(auto seg : faces) {
+    // get points of face
     std::vector<ppPosition> vertices = seg.getPositions();
     // begin drawing
     glBegin(seg.getMode());

@@ -50,37 +50,37 @@ ppVector ppVector::operator*(const ppVector& v) {
     return vector;
 }
 
-// ---------- ppSegment ----------
+// ---------- ppFace ----------
 
-ppSegment::ppSegment(GLenum mode, std::string name, std::vector<ppPosition> positions) {
+ppFace::ppFace(GLenum mode, std::string name, std::vector<ppPosition> positions) {
   this->mode = mode;
   this->name = name;
   this->positions = positions;
 }
 
-GLenum ppSegment::getMode() {
+GLenum ppFace::getMode() {
   return this->mode;
 }
 
-std::string ppSegment::getName() {
+std::string ppFace::getName() {
   return this->name;
 }
 
-std::vector<ppPosition> ppSegment::getPositions() {
+std::vector<ppPosition> ppFace::getPositions() {
   return this->positions;
 }
 
-// ---------- ppShape ----------
+// ---------- ppMesh ----------
 
-ppShape::ppShape(std::string name, std::vector<ppSegment> segments) {
+ppMesh::ppMesh(std::string name, std::vector<ppFace> faces) {
   this->name = name;
-  this->segments = segments;
+  this->faces = faces;
 }
 
-std::string ppShape::getName() {
+std::string ppMesh::getName() {
   return this->name;
 }
 
-std::vector<ppSegment> ppShape::getSegments() {
-  return this->segments;
+std::vector<ppFace> ppMesh::getFaces() {
+  return this->faces;
 }
