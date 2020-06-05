@@ -2,18 +2,17 @@
 #include <iostream>
 #include <GL/glut.h>
 
-#ifndef PP_POINT
-#define PP_POINT
+#ifndef PP_POSITION
+#define PP_POSITION
 
-class ppPoint {
-protected:
+class ppPosition {
+public:
   double x;
   double y;
   double z;
 
-public:
-  ppPoint();
-  ppPoint(double x, double y, double z);
+  ppPosition();
+  ppPosition(double x, double y, double z);
   void describe();
 };
 
@@ -22,7 +21,7 @@ public:
 #ifndef PP_VECTOR
 #define PP_VECTOR
 
-class ppVector : public ppPoint {
+class ppVector : public ppPosition {
 public:
   ppVector();
   ppVector(double x, double y, double z);
@@ -40,14 +39,14 @@ class ppSegment {
 private:
   GLenum mode; // type of segment (needed by openGL)
   std::string name; // name to identify for example sides of a cube
-  std::vector<ppPoint> points;  // dynamic list of points of segment
+  std::vector<ppPosition> points;  // dynamic list of points of segment
 
 public:
-  ppSegment(GLenum mode, std::string name, std::vector<ppPoint> points);
+  ppSegment(GLenum mode, std::string name, std::vector<ppPosition> points);
 
   GLenum getMode();
   std::string getName();
-  std::vector<ppPoint> getPoints();
+  std::vector<ppPosition> getPoints();
 };
 
 #endif

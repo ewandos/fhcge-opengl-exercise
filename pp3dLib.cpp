@@ -1,20 +1,20 @@
 #include "pp3dLib.h"
 
-// ---------- ppPoint ----------
+// ---------- ppPosition ----------
 
-ppPoint::ppPoint() {
+ppPosition::ppPosition() {
   this->x = 0;
   this->y = 0;
   this->z = 0;
 }
 
-ppPoint::ppPoint(double x, double y, double z) {
+ppPosition::ppPosition(double x, double y, double z) {
   this->x = x;
   this->y = y;
   this->z = z;
 }
 
-void ppPoint::describe() {
+void ppPosition::describe() {
   std::cout << "x:" << this->x << ", ";
   std::cout << "y:" << this->y << ", ";
   std::cout << "z:" << this->z << std::endl;
@@ -22,9 +22,9 @@ void ppPoint::describe() {
 
 // ---------- ppVector ----------
 
-ppVector::ppVector() : ppPoint() {}
+ppVector::ppVector() : ppPosition() {}
 
-ppVector::ppVector(double x, double y, double z) : ppPoint(x, y, z) {}
+ppVector::ppVector(double x, double y, double z) : ppPosition(x, y, z) {}
 
 ppVector ppVector::operator+(const ppVector& v) {
    ppVector vector;
@@ -52,7 +52,7 @@ ppVector ppVector::operator*(const ppVector& v) {
 
 // ---------- ppSegment ----------
 
-ppSegment::ppSegment(GLenum mode, std::string name, std::vector<ppPoint> points) {
+ppSegment::ppSegment(GLenum mode, std::string name, std::vector<ppPosition> points) {
   this->mode = mode;
   this->name = name;
   this->points = points;
@@ -66,7 +66,7 @@ std::string ppSegment::getName() {
   return this->name;
 }
 
-std::vector<ppPoint> ppSegment::getPoints() {
+std::vector<ppPosition> ppSegment::getPoints() {
   return this->points;
 }
 

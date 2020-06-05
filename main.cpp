@@ -10,41 +10,41 @@ ppObject createTestCube() {
   std::vector<ppSegment> segments;
   // create segments
   // create vectors for points
-  std::vector<ppPoint> front;
-  front.push_back(ppPoint(0.0f, 0.0f, 0.0f));
-  front.push_back(ppPoint(1.0f, 0.0f, 0.0f));
-  front.push_back(ppPoint(1.0f, 1.0f, 0.0f));
-  front.push_back(ppPoint(0.0f, 1.0f, 0.0f));
+  std::vector<ppPosition> front;
+  front.push_back(ppPosition(0.0f, 0.0f, 0.0f));
+  front.push_back(ppPosition(1.0f, 0.0f, 0.0f));
+  front.push_back(ppPosition(1.0f, 1.0f, 0.0f));
+  front.push_back(ppPosition(0.0f, 1.0f, 0.0f));
 
-  std::vector<ppPoint> back;
-  back.push_back(ppPoint(0.0f, 0.0f, 1.0f));
-  back.push_back(ppPoint(1.0f, 0.0f, 1.0f));
-  back.push_back(ppPoint(1.0f, 1.0f, 1.0f));
-  back.push_back(ppPoint(0.0f, 1.0f, 1.0f));
+  std::vector<ppPosition> back;
+  back.push_back(ppPosition(0.0f, 0.0f, 1.0f));
+  back.push_back(ppPosition(1.0f, 0.0f, 1.0f));
+  back.push_back(ppPosition(1.0f, 1.0f, 1.0f));
+  back.push_back(ppPosition(0.0f, 1.0f, 1.0f));
 
-  std::vector<ppPoint> left;
-  left.push_back(ppPoint(1.0f, 0.0f, 0.0f));
-  left.push_back(ppPoint(1.0f, 0.0f, 1.0f));
-  left.push_back(ppPoint(1.0f, 1.0f, 1.0f));
-  left.push_back(ppPoint(1.0f, 1.0f, 0.0f));
+  std::vector<ppPosition> left;
+  left.push_back(ppPosition(1.0f, 0.0f, 0.0f));
+  left.push_back(ppPosition(1.0f, 0.0f, 1.0f));
+  left.push_back(ppPosition(1.0f, 1.0f, 1.0f));
+  left.push_back(ppPosition(1.0f, 1.0f, 0.0f));
 
-  std::vector<ppPoint> right;
-  right.push_back(ppPoint(0.0f, 0.0f, 0.0f));
-  right.push_back(ppPoint(0.0f, 0.0f, 1.0f));
-  right.push_back(ppPoint(0.0f, 1.0f, 1.0f));
-  right.push_back(ppPoint(0.0f, 1.0f, 0.0f));
+  std::vector<ppPosition> right;
+  right.push_back(ppPosition(0.0f, 0.0f, 0.0f));
+  right.push_back(ppPosition(0.0f, 0.0f, 1.0f));
+  right.push_back(ppPosition(0.0f, 1.0f, 1.0f));
+  right.push_back(ppPosition(0.0f, 1.0f, 0.0f));
 
-  std::vector<ppPoint> top;
-  top.push_back(ppPoint(0.0f, 1.0f, 0.0f));
-  top.push_back(ppPoint(0.0f, 1.0f, 1.0f));
-  top.push_back(ppPoint(1.0f, 1.0f, 1.0f));
-  top.push_back(ppPoint(1.0f, 1.0f, 0.0f));
+  std::vector<ppPosition> top;
+  top.push_back(ppPosition(0.0f, 1.0f, 0.0f));
+  top.push_back(ppPosition(0.0f, 1.0f, 1.0f));
+  top.push_back(ppPosition(1.0f, 1.0f, 1.0f));
+  top.push_back(ppPosition(1.0f, 1.0f, 0.0f));
 
-  std::vector<ppPoint> bottom;
-  bottom.push_back(ppPoint(0.0f, 0.0f, 0.0f));
-  bottom.push_back(ppPoint(1.0f, 0.0f, 0.0f));
-  bottom.push_back(ppPoint(1.0f, 0.0f, 1.0f));
-  bottom.push_back(ppPoint(0.0f, 0.0f, 1.0f));
+  std::vector<ppPosition> bottom;
+  bottom.push_back(ppPosition(0.0f, 0.0f, 0.0f));
+  bottom.push_back(ppPosition(1.0f, 0.0f, 0.0f));
+  bottom.push_back(ppPosition(1.0f, 0.0f, 1.0f));
+  bottom.push_back(ppPosition(0.0f, 0.0f, 1.0f));
 
   // add to segments vector
   segments.push_back(ppSegment(GL_QUADS, "front", front));

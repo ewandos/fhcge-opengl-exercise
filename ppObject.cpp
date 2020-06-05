@@ -18,7 +18,7 @@ void ppObject::draw() {
   // iterate over segments
   for(auto seg = std::begin(segments); seg != std::end(segments); ++seg) {
     // get points of segment
-    std::vector<ppPoint> points = seg->getPoints();
+    std::vector<ppPosition> points = seg->getPoints();
     // begin drawing
     glBegin(seg->getMode());
     // iterate over points
