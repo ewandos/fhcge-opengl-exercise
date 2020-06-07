@@ -1,4 +1,6 @@
 #include <GL/glut.h>
+#include <eigen3/Eigen/Dense>
+
 #include "pp3dLib.h"
 #include "ppObject.h"
 #include "ppRenderer.h"
@@ -26,7 +28,7 @@ void display() {
   ppMeshFactory factory;
 
   ppObject cube = ppObject("cube", factory.getCube(1.0f));
-  cube.setPosition(ppPosition(2.0f, 2.0f, -10.0f));
+  cube.setPosition(Eigen::Vector3d(2.0f, 2.0f, -10.0f));
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -8,7 +8,7 @@ class ppObject {
 private:
   std::string name;
   ppMesh* mesh;
-  ppPosition position;
+  Eigen::Vector3d position;
   // ppVector velocity;
   // ppVector acceleration;
 public:
@@ -18,8 +18,8 @@ public:
 
   ppMesh* getMesh();
 
-  void setPosition(ppPosition pos);
-  ppPosition getPosition();
+  void setPosition(Eigen::Vector3d pos);
+  Eigen::Vector3d getPosition();
   void rotateAround(ppObject parent, double d);
   /*
   translate toward parent's coordinates
