@@ -28,7 +28,7 @@ void display() {
   ppMeshFactory factory;
 
   ppObject cube = ppObject("cube", factory.getCube(1.0f));
-  cube.setPosition(Eigen::Vector3d(2.0f, 2.0f, -10.0f));
+  cube.setPosition(Eigen::Vector3d(0.0f, 0.0f, -6.0f));
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -47,11 +47,24 @@ void keyPressed(unsigned char key, int x, int y) {
 }
 
 void init(int width, int height) {
+  GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+  GLfloat mat_shininess[] = { 5.0 };
+  GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+
+  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  glEnable(GL_DEPTH_TEST);
+
+  glShadeModel(GL_SMOOTH);
+
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
   glClearDepth(1.0);
   glDepthFunc(GL_LESS);
-  glEnable(GL_DEPTH_TEST);
-  glShadeModel(GL_SMOOTH);
+
   resize(width, height);
 }
 

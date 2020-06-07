@@ -24,6 +24,7 @@ private:
   GLenum mode; // type of face (needed by openGL)
   std::string name; // name to identify for example sides of a cube
   std::vector<Eigen::Vector3d> vertices;  // dynamic list of points of face
+  Eigen::Vector3d normal;
 
 public:
   ppFace(GLenum mode, std::string name, std::vector<Eigen::Vector3d> vertices);
@@ -31,6 +32,7 @@ public:
   GLenum getMode();
   std::string getName();
   std::vector<Eigen::Vector3d> getVertices();
+  Eigen::Vector3d getNormal();
 };
 
 #endif
