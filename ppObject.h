@@ -9,6 +9,8 @@ private:
   std::string name;
   ppMesh* mesh;
   Eigen::Vector3d position;
+  std::vector<double> rotation;
+
   // ppVector velocity;
   // ppVector acceleration;
 public:
@@ -20,7 +22,11 @@ public:
 
   void setPosition(Eigen::Vector3d pos);
   Eigen::Vector3d getPosition();
-  void rotateAround(ppObject parent, double d);
+
+  void setRotation(double xRot, double yRot, double zRot);
+  std::vector<double> getRotation();
+
+  //void rotateAround(ppObject parent, double d);
   /*
   translate toward parent's coordinates
   rotate around parent

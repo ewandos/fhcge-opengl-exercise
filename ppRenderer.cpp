@@ -11,8 +11,12 @@ void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p) {
 
   glLoadIdentity();
   glTranslatef(pos[0], pos[1], pos[2]);
-  // TODO: proper rotation system
-  glRotatef(-45.0f, 0.5f, 1.0f, 0.0f);
+  // get rotation
+  std::vector<double> rot = obj.getRotation();
+  // rotation in XYZ Euler
+  glRotatef(rot.at(0), 1.0f, 0.0f, 0.0f);
+  glRotatef(rot.at(1), 0.0f, 1.0f, 0.0f);
+  glRotatef(rot.at(2), 0.0f, 0.0f, 1.0f);
 
   // get faces of mesh
   std::vector<ppFace> faces = obj.getMesh()->getFaces();
