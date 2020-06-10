@@ -11,46 +11,87 @@
  * - abstract 3d components
  */
 
-#ifndef PP_FACE
-#define PP_FACE
+#ifndef PP_3D_LIB
+#define PP_3D_LIB
 
 /*
- * Stores multiple ppPositions that form a chosen face of a ppMesh.
- * A face can be something like a 2d quad or a triangle in 3d space.
- * Such quad or triangle will be merged to a mesh (e.g. a qube).
- */
+lowest in the pp3dLib hierarchy, ppVertex stores
+the vertex coordinates and normal vector data
+*/
+typedef struct vertex {
+  Eigen::Vector3d vertexData;
+  Eigen::Vector3d normalData;
+  vertex(double x, double y, double z) {
+    this->vertexData = Eigen::Vector3d(x, y, z);
+  }
+} ppVertex;
+
+/*
+ppPoint consists of n vertices with identical coordinates
+*/
+class ppPoint {
+private:
+  Eigen::Vector3d position;
+  std::vector<ppVertex*> vertices;
+public:
+  ppPoint(ppVertex* vertex);
+  void addVertex(ppVertex*);
+
+  Eigen::Vector3d getPosition();
+  std::vector<ppVertex*> getVertices();
+
+};
+
+/*
+used for calculating which vertices lie on the same coordinates
+*/
+class ppPointFactory {
+public:
+  std::vector<ppPoint*>getPointsFromVertices(std::vector<ppVertex*>);
+};
+
+/*
+stores all ppVertex that form a face
+stores the mode of the face (needed by glBegin())
+calculates and stores the normal of the face
+assigns the face normal to the ppVertex
+(the normals of ppVertex are recalculated in ppMesh)
+*/
 class ppFace {
 private:
   GLenum mode; // type of face (needed by openGL)
   std::string name; // name to identify for example sides of a cube
-  std::vector<Eigen::Vector3d> vertices;  // dynamic list of points of face
-  Eigen::Vector3d normal;
+  std::vector<ppVertex*> vertices;  // dynamic list of points of face
+  Eigen::Vector3d faceNormal;
+
+  Eigen::Vector3d calcFaceNormal();
 
 public:
-  ppFace(GLenum mode, std::string name, std::vector<Eigen::Vector3d> vertices);
+  ppFace(GLenum mode, std::string name, std::vector<ppVertex*> vertices);
 
   GLenum getMode();
   std::string getName();
-  std::vector<Eigen::Vector3d> getVertices();
-  Eigen::Vector3d getNormal();
+
+  std::vector<ppVertex*> getVertices();
+
+  Eigen::Vector3d getFaceNormal();
 };
 
-#endif
-
-#ifndef PP_MESH
-#define PP_MESH
-
 /*
- * Stores multiple ppFaces to form a mesh of an object.
- * A mesh can be something like a 3d cube in 3d space.
- */
+stores n faces that form the mesh
+also stores a list of ppPoints, with which
+the normals of each ppVertex are recalculated
+*/
 class ppMesh {
 private:
   std::string name;
   std::vector<ppFace> faces;
+  std::vector<ppPoint*> points;
 
 public:
   ppMesh(std::string name, std::vector<ppFace>);
+
+  void recalculateVertexNormals();
 
   std::string getName();
   std::vector<ppFace> getFaces();

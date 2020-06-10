@@ -6,6 +6,9 @@
 class ppMeshFactory {
 public:
   ppMesh* getCube(double length);
+  ppMesh* getPyramid(double length, double height);
+
+  ppMesh* getTestCube(double length);
 };
 
 #endif

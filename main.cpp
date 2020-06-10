@@ -20,18 +20,22 @@ void resize(int width, int height)
   glMatrixMode(GL_MODELVIEW);
 }
 
+double xRot = 0.0f;
+double yRot = 0.0f;
+double zRot = 0.0f;
+
 void display() {
+  // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
   ppRenderer renderer;
-  // creating test cube
 
   ppMeshFactory factory;
 
   ppObject cube = ppObject("cube", factory.getCube(1.0f));
   cube.setPosition(Eigen::Vector3d(0.0f, 0.0f, -6.0f));
-
-  // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  cube.setRotation(xRot, yRot, zRot);
 
   renderer.draw(cube);
 
@@ -44,12 +48,25 @@ void keyPressed(unsigned char key, int x, int y) {
     exit(0);
   }
 
+  if(key == 97) {
+    xRot += 1.0f;
+    display();
+  }
+  if(key == 115) {
+    yRot += 1.0f;
+    display();
+  }
+  if(key == 100) {
+    zRot += 1.0f;
+    display();
+  }
+
 }
 
 void init(int width, int height) {
   GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
   GLfloat mat_shininess[] = { 5.0 };
-  GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+  GLfloat light_position[] = { -10.0f, 10.0f, 10.0f, 0.0f };
 
   glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
   glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
