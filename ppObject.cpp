@@ -32,3 +32,16 @@ void ppObject::setRotation(double xRot, double yRot, double zRot) {
 std::vector<double> ppObject::getRotation() {
   return this->rotation;
 }
+
+void ppObject::setTexture(GLuint texture) {
+  this->textured = true;
+  this->texture = texture;
+}
+
+GLuint ppObject::getTexture() {
+  return this->texture;
+}
+
+bool ppObject::isTextured() {
+  return this->textured;
+}

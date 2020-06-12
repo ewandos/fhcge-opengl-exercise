@@ -10,6 +10,9 @@ private:
   ppMesh* mesh;
   Eigen::Vector3d position;
   std::vector<double> rotation;
+  GLuint texture;
+  bool textured = false;
+
 
   // ppVector velocity;
   // ppVector acceleration;
@@ -25,6 +28,10 @@ public:
 
   void setRotation(double xRot, double yRot, double zRot);
   std::vector<double> getRotation();
+
+  void setTexture(GLuint texture);
+  GLuint getTexture();
+  bool isTextured();
 
   //void rotateAround(ppObject parent, double d);
   /*
