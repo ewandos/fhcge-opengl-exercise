@@ -69,6 +69,8 @@ ppFace::ppFace(GLenum mode, std::string name, std::vector<ppVertex*> vertices) {
     vertex->normalData = this->faceNormal;
   }
 
+  this->calcUVCoordinates();
+
 }
 
 /*
@@ -78,6 +80,39 @@ Eigen::Vector3d ppFace::calcFaceNormal() {
   Eigen::Vector3d v = this->vertices.at(1)->vertexData - this->vertices.at(0)->vertexData;
   Eigen::Vector3d w = this->vertices.at(2)->vertexData - this->vertices.at(0)->vertexData;
   return v.cross(w).normalized();
+}
+
+void ppFace::calcUVCoordinates() {
+  // choose origin for transformation
+  Eigen::Vector3d origin = this->vertices.at(0)->vertexData;
+  // calculate arbitrary u axis
+  Eigen::Vector3d u_axis = (this->vertices.at(1)->vertexData - origin).normalized();
+  // caluclate v from normalvector cross u_axis
+  Eigen::Vector3d v_axis = (this->faceNormal.cross(u_axis)).normalized();
+
+  // result vector of 2d uv coords
+  std::vector<Eigen::Vector2d> result;
+
+  // transform each vertex
+  for(ppVertex* vertex : this->vertices) {
+    // calculate uv coordinates
+    double u = u_axis.dot(vertex->vertexData - origin);
+    double v = v_axis.dot(vertex->vertexData - origin);
+
+    // normalize coordinates
+    double min = 0.0f;
+    double max = 0.0f;
+    min = std::min(u, v);
+    max = std::max(u, v);
+    if(min != max) {
+      u = (u - min) / (max - min);
+      v = (v - min) / (max - min);
+    }
+
+    // set the vertex' uv data
+    vertex->uvData = Eigen::Vector2d(u, v);
+
+  }
 }
 
 GLenum ppFace::getMode() {

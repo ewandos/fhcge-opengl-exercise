@@ -7,8 +7,8 @@
 
 class ppRenderer {
 public:
-  void draw(ppObject obj);
-  void draw(ppObject obj, Eigen::Vector3d* p);
+  void draw(ppObject obj, GLuint texture);
+  void draw(ppObject obj, Eigen::Vector3d* p, GLuint texture);
 };
 
 #endif

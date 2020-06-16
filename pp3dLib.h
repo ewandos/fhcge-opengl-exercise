@@ -21,6 +21,7 @@ the vertex coordinates and normal vector data
 typedef struct vertex {
   Eigen::Vector3d vertexData;
   Eigen::Vector3d normalData;
+  Eigen::Vector2d uvData;
   vertex(double x, double y, double z) {
     this->vertexData = Eigen::Vector3d(x, y, z);
   }
@@ -63,8 +64,10 @@ private:
   std::string name; // name to identify for example sides of a cube
   std::vector<ppVertex*> vertices;  // dynamic list of points of face
   Eigen::Vector3d faceNormal;
+  std::vector<Eigen::Vector2d> uvCoords;
 
   Eigen::Vector3d calcFaceNormal();
+  void calcUVCoordinates();
 
 public:
   ppFace(GLenum mode, std::string name, std::vector<ppVertex*> vertices);

@@ -1,7 +1,7 @@
 all: main
 
-main: main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o
-	g++ main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o -o myApp -lglut -lGLU -lGL
+main: main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o tga.o
+	g++ main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o tga.o -o myApp -lglut -lGLU -lGL
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -17,6 +17,9 @@ ppRenderer.o: ppRenderer.h ppRenderer.cpp
 
 ppShapeFactory.o: ppMeshFactory.h ppMeshFactory.cpp
 	g++ -c ppMeshFactory.cpp
+
+tga.o: tga.h tga.cpp
+	g++ -c tga.cpp
 
 run: all
 	./myApp
