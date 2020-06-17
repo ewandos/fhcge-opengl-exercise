@@ -1,10 +1,10 @@
 #include "ppRenderer.h"
 
-void ppRenderer::draw(ppObject obj) {
-  draw(obj, nullptr);
+void ppRenderer::draw(ppObject obj, bool shadeSmooth) {
+  draw(obj, nullptr, shadeSmooth);
 }
 
-void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p) {
+void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p, bool shadeSmooth) {
   Eigen::Vector3d pos;
   if(p == nullptr) {
     pos = obj.getPosition();
@@ -20,7 +20,6 @@ void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p) {
   glRotatef(rot.at(0), 1.0f, 0.0f, 0.0f);
   glRotatef(rot.at(1), 0.0f, 1.0f, 0.0f);
   glRotatef(rot.at(2), 0.0f, 0.0f, 1.0f);
-
 
   if (obj.isTextured()) {
     // initialize texture drawing
@@ -39,8 +38,12 @@ void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p) {
     glBegin(face.getMode());
     // for each vertex
 
+    if(!shadeSmooth)
+    glNormal3f(face.getFaceNormal()[0], face.getFaceNormal()[1], face.getFaceNormal()[2]);
+
     for(ppVertex* vertex : vertices) {
       // draw its normal
+      if(shadeSmooth)
       glNormal3f(vertex->normalData[0], vertex->normalData[1], vertex->normalData[2]);
 
       if (obj.isTextured()) {

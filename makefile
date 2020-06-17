@@ -1,7 +1,7 @@
 all: main
 
 main: main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o tga.o ppTextureLoader.o
-	g++ *.o -o myApp -lglut -lGLU -lGL
+	g++ *.o -o ppGraphics -lglut -lGLU -lGL
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -25,7 +25,7 @@ ppTextureLoader.o: ppTextureLoader.h ppTextureLoader.cpp
 	g++ -c ppTextureLoader.cpp
 
 run: all
-	./myApp
+	./ppGraphics -smooth
 
 clean:
-	rm *.o myApp -f
+	rm *.o ppGraphics -f

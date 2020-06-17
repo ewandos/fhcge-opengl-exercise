@@ -10,6 +10,8 @@
 
 int window;
 GLuint texture;
+// shading properties
+bool shadeSmooth;
 // pp libraries related variables
 ppMeshFactory factory;
 ppRenderer renderer;
@@ -56,7 +58,7 @@ void display() {
   }
 
   // draw cube
-  renderer.draw(cube);
+  renderer.draw(cube, shadeSmooth);
   glutSwapBuffers();
 }
 
@@ -170,6 +172,9 @@ void init(int width, int height) {
 }
 
 int main(int argc, char **argv) {
+  if(argc == 1) shadeSmooth = false;
+  else shadeSmooth = true;
+
   // Initialize Library
   glutInit(&argc, argv);
 
