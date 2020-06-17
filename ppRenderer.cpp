@@ -38,6 +38,7 @@ void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p) {
     // begin drawing
     glBegin(face.getMode());
     // for each vertex
+
     for(ppVertex* vertex : vertices) {
       // draw its normal
       glNormal3f(vertex->normalData[0], vertex->normalData[1], vertex->normalData[2]);

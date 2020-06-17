@@ -10,9 +10,24 @@
 
 int window;
 GLuint texture;
+// pp libraries related variables
 ppMeshFactory factory;
 ppRenderer renderer;
 ppTextureLoader texLoader;
+// object related variables
+ppObject cube = ppObject("cubeMesh", factory.getCubeMesh(1.0f));
+// translation and rotation
+double xRot = 0.0f;
+double yRot = 0.0f;
+double zRot = 0.0f;
+double xOff = 0.0f;
+double yOff = 0.0f;
+double zOff = 0.0f;
+bool translating = false;
+bool rotating = false;
+bool xDir = false;
+bool yDir = false;
+bool zDir = false;
 
 void resize(int width, int height)
 {
@@ -26,21 +41,21 @@ void resize(int width, int height)
   glMatrixMode(GL_MODELVIEW);
 }
 
-double xRot = 0.0f;
-double yRot = 0.0f;
-double zRot = 0.0f;
-double size = 1.0f;
-
 void display() {
 
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  ppObject cube = ppObject("cube", factory.getCubeMesh(1.0f));
-  cube.setPosition(Eigen::Vector3d(0.0f, 0.0f, -6.0f));
-  cube.setRotation(xRot, yRot, zRot);
-  cube.setTexture(texLoader.getTexture());
 
+  if(translating) {
+    Eigen::Vector3d newPos = Eigen::Vector3d(xOff, yOff, zOff);
+    cube.setPosition(newPos);
+  }
+  if(rotating) {
+    cube.setRotation(xRot, yRot, zRot);
+  }
+
+  // draw cube
   renderer.draw(cube);
   glutSwapBuffers();
 }
@@ -51,19 +66,83 @@ void keyPressed(unsigned char key, int x, int y) {
     exit(0);
   }
 
-  if(key == 97) {
-    size += 0.01f;
-    display();
+  /* TRANSLATING + ROTATING */
+
+  // if 'g' is pressed, toggle translating if not rotating
+  // + disable any directions
+  if(key == 'g' && !rotating) {
+    if(translating) {
+      std::cout << "translating turned off" << std::endl;
+      std::cout << "directions reset" << std::endl;
+      std::cout << "offsets reset" << std::endl;
+      translating = false;
+      xDir = yDir = zDir = false;
+      xOff = cube.getPosition()[0];
+      yOff = cube.getPosition()[1];
+      zOff = cube.getPosition()[2];
+    }
+    else {
+      std::cout << "translating turned on" << std::endl;
+      translating = true;
+    }
   }
-  if(key == 115) {
-    yRot += 1.0f;
-    display();
-  }
-  if(key == 100) {
-    zRot += 1.0f;
-    display();
+  // if 'r' is pressed, toggle rotating if not translating
+  // + disable any directions
+  if(key == 'r' && !translating) {
+    if(rotating) {
+      std::cout << "rotation turned off" << std::endl;
+      std::cout << "axes reset" << std::endl;
+      std::cout << "rotation offsets reset" << std::endl;
+      rotating = false;
+      xDir = yDir = zDir = false;
+    }
+    else {
+      std::cout << "rotating turned on" << std::endl;
+      rotating = true;
+    }
   }
 
+  // if translating or rotating, register direction
+  if(key == 'x' && (translating || rotating)) {
+    std::cout << "xDir turned on" << std::endl;
+    xDir = true;
+  }
+  if(key == 'y' && (translating || rotating)) {
+    yDir = true;
+    std::cout << "yDir turned on" << std::endl;
+  }
+  if(key == 'z' && (translating || rotating)) {
+    zDir = true;
+    std::cout << "zDir turned on" << std::endl;
+  }
+
+  // if change rotation and translation offset
+  if(key == 'w') {
+    if(translating) {
+      if(xDir) xOff += 0.1f;
+      if(yDir) yOff += 0.1f;
+      if(zDir) zOff += 0.1f;
+    }
+    if(rotating) {
+      if(xDir) xRot += 12.0f;
+      if(yDir) yRot += 12.0f;
+      if(zDir) zRot += 12.0f;
+    }
+  }
+  if(key == 's') {
+    if(translating) {
+      if(xDir) xOff += -0.1f;
+      if(yDir) yOff += -0.1f;
+      if(zDir) zOff += -0.1f;
+    }
+    if(rotating) {
+      if(xDir) xRot += -12.0f;
+      if(yDir) yRot += -12.0f;
+      if(zDir) zRot += -12.0f;
+    }
+  }
+
+  display();
 }
 
 void init(int width, int height) {
@@ -83,7 +162,7 @@ void init(int width, int height) {
 
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
   glClearDepth(1.0);
-  glDepthFunc(GL_LESS);
+  glDepthFunc(GL_SMOOTH);
 
   resize(width, height);
 
@@ -96,7 +175,7 @@ int main(int argc, char **argv) {
 
   // Build Window
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
-  glutInitWindowSize(2640, 1480);
+  glutInitWindowSize(640, 480);
   glutInitWindowPosition(0, 0);
   window = glutCreateWindow("Incocknito Headshot's Playground");
 
@@ -108,6 +187,19 @@ int main(int argc, char **argv) {
   // Initialize openGL
   init(640, 480);
 
+  // set object properties
+  // set texture
+  cube.setTexture(texLoader.getTexture());
+  // set position
+  cube.setPosition(Eigen::Vector3d(0.0f, 0.0f, -6.0f));
+  cube.setRotation(0.0f, 0.0f, 0.0f);
+  // translation and rotation variables to original value
+  xOff = cube.getPosition()[0];
+  yOff = cube.getPosition()[1];
+  zOff = cube.getPosition()[2];
+  xRot = cube.getRotation().at(0);
+  yRot = cube.getRotation().at(1);
+  xRot = cube.getRotation().at(2);
 
   glutMainLoop();
   return 0;

@@ -7,7 +7,7 @@ void ppTextureLoader::init() {
   tgaInfo *info = 0;
   int mode;
 
-  info = tgaLoad("elf.tga");
+  info = tgaLoad("CGE_bricks.tga");
 
   if (info->status != TGA_OK) {
     fprintf(stderr, "error loading texture image: %d\n", info->status);
