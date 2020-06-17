@@ -1,4 +1,6 @@
 #include "pp3dLib.h"
+#include <float.h>
+#include <limits.h>
 
 // ---------- ppPoint ----------
 
@@ -90,8 +92,10 @@ void ppFace::calcUVCoordinates() {
   // caluclate v from normalvector cross u_axis
   Eigen::Vector3d v_axis = (this->faceNormal.cross(u_axis)).normalized();
 
-  // result vector of 2d uv coords
-  std::vector<Eigen::Vector2d> result;
+
+  // min max for normalization
+  double min = DBL_MAX;
+  double max = DBL_MIN;
 
   // transform each vertex
   for(ppVertex* vertex : this->vertices) {
@@ -99,19 +103,19 @@ void ppFace::calcUVCoordinates() {
     double u = u_axis.dot(vertex->vertexData - origin);
     double v = v_axis.dot(vertex->vertexData - origin);
 
-    // normalize coordinates
-    double min = 0.0f;
-    double max = 0.0f;
-    min = std::min(u, v);
-    max = std::max(u, v);
-    if(min != max) {
-      u = (u - min) / (max - min);
-      v = (v - min) / (max - min);
-    }
+    // get min/max
+    if(u < min) min = u;
+    if(v < min) min = v;
+    if(u > max) max = u;
+    if(v > max) max = v;
 
-    // set the vertex' uv data
+    // set uv data
     vertex->uvData = Eigen::Vector2d(u, v);
-
+  }
+  // normalize
+  for(ppVertex* vertex : this->vertices) {
+      vertex->uvData[0] = (vertex->uvData[0] - min) / (max - min);
+      vertex->uvData[1] = (vertex->uvData[1] - min) / (max - min);
   }
 }
 
