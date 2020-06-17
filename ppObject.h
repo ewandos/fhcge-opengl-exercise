@@ -6,18 +6,19 @@
 
 class ppObject {
 private:
-  std::string name;
+  std::string identifier;
   ppMesh* mesh;
   Eigen::Vector3d position;
   std::vector<double> rotation;
+  GLuint* texture;
 
-  // ppVector velocity;
-  // ppVector acceleration;
 public:
-  ppObject(std::string name, ppMesh* mesh);
+  ppObject(std::string identifier, ppMesh* mesh);
 
-  std::string getName();
+  void setIdentifier(std::string identifier);
+  std::string getIdentifier();
 
+  void setMesh(ppMesh* mesh);
   ppMesh* getMesh();
 
   void setPosition(Eigen::Vector3d pos);
@@ -26,33 +27,9 @@ public:
   void setRotation(double xRot, double yRot, double zRot);
   std::vector<double> getRotation();
 
-  //void rotateAround(ppObject parent, double d);
-  /*
-  translate toward parent's coordinates
-  rotate around parent
-
-  call draw
-  */
-
-  // spawn object at x, y, z and set mesh
-  //Object(std::vector<double> location, matrix vertices);
-
-  // add vector to current coordinates
-  // void move(std::vector<double> update);
-
-  //void setLoc(void);
-
-  // some function to update velocity (based on acceleration?)
-  // some function to update acceleration
-
-  // some function to manipulate object's mesh
-
-  /*
-  some function to draw the object
-  this includes resetting to the identity matrix,
-  translating based on the current coordinates
-  and then drawing a polygon based on the object's mesh
-  */
+  void setTexture(GLuint* texture);
+  GLuint* getTexture();
+  bool isTextured();
 };
 
 #endif

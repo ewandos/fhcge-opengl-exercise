@@ -1,6 +1,10 @@
 #include "ppRenderer.h"
 
-void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p, GLuint texture) {
+void ppRenderer::draw(ppObject obj) {
+  draw(obj, nullptr);
+}
+
+void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p) {
   Eigen::Vector3d pos;
   if(p == nullptr) {
     pos = obj.getPosition();
@@ -18,10 +22,11 @@ void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p, GLuint texture) {
   glRotatef(rot.at(2), 0.0f, 0.0f, 1.0f);
 
 
-  // TEXTURE TEST CODE
-  glEnable(GL_TEXTURE_2D);
-  glBindTexture(GL_TEXTURE_2D, texture);
-
+  if (obj.isTextured()) {
+    // initialize texture drawing
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, *obj.getTexture());
+  }
 
   // get faces of mesh
   std::vector<ppFace> faces = obj.getMesh()->getFaces();
@@ -37,20 +42,19 @@ void ppRenderer::draw(ppObject obj, Eigen::Vector3d* p, GLuint texture) {
       // draw its normal
       glNormal3f(vertex->normalData[0], vertex->normalData[1], vertex->normalData[2]);
 
-      // TEXTURE TEST CODE
-      glTexCoord2f(vertex->uvData[0], vertex->uvData[1]);
+      if (obj.isTextured()) {
+        // draw its texture coordinates
+        glTexCoord2f(vertex->uvData[0], vertex->uvData[1]);
+      }
 
       // draw the vertex
       glVertex3f(vertex->vertexData[0], vertex->vertexData[1], vertex->vertexData[2]);
     }
     // end drawing
     glEnd();
-
   }
 
-  glDisable(GL_TEXTURE_2D);
-}
-
-void ppRenderer::draw(ppObject obj, GLuint texture) {
-  draw(obj, nullptr, texture);
+  if (obj.isTextured()) {
+    glDisable(GL_TEXTURE_2D);
+  }
 }

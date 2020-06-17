@@ -8,8 +8,9 @@
 #include "tga.h"
 
 int window;
-
 GLuint texture;
+ppMeshFactory factory;
+ppRenderer renderer;
 
 void resize(int width, int height)
 {
@@ -26,22 +27,18 @@ void resize(int width, int height)
 double xRot = 0.0f;
 double yRot = 0.0f;
 double zRot = 0.0f;
+double size = 1.0f;
 
 void display() {
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-  ppRenderer renderer;
-
-  ppMeshFactory factory;
-
-  ppObject cube = ppObject("cube", factory.getCube(1.0f));
+  ppObject cube = ppObject("cube", factory.getCubeMesh(1.0f));
   cube.setPosition(Eigen::Vector3d(0.0f, 0.0f, -6.0f));
   cube.setRotation(xRot, yRot, zRot);
+  cube.setTexture(&texture);
 
-  renderer.draw(cube, texture);
-
+  renderer.draw(cube);
   glutSwapBuffers();
 }
 
@@ -52,7 +49,7 @@ void keyPressed(unsigned char key, int x, int y) {
   }
 
   if(key == 97) {
-    xRot += 1.0f;
+    size += 0.01f;
     display();
   }
   if(key == 115) {

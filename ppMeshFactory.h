@@ -1,14 +1,12 @@
 #include "pp3dLib.h"
 
-#ifndef PP_SHAPE_FACTORY
-#define PP_SHAPE_FACTORY
+#ifndef PP_MESH_FACTORY
+#define PP_MESH_FACTORY
 
 class ppMeshFactory {
 public:
-  ppMesh* getCube(double length);
-  ppMesh* getPyramid(double length, double height);
-
-  ppMesh* getTestCube(double length);
+  ppMesh* getCubeMesh(double length);
+  ppMesh* getPyramidMesh(double length, double height);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "ppMeshFactory.h"
 
-ppMesh* ppMeshFactory::getCube(double length) {
+ppMesh* ppMeshFactory::getCubeMesh(double length) {
   std::vector<ppFace> faces;
   std::vector<ppPoint*> points;
 

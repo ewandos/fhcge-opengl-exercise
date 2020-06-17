@@ -1,14 +1,23 @@
 #include "ppObject.h"
 
-ppObject::ppObject(std::string name, ppMesh* mesh) {
-  this->name = name;
+ppObject::ppObject(std::string identifier, ppMesh* mesh) {
+  this->identifier = identifier;
   this->mesh = mesh;
   this->position = Eigen::Vector3d();
   this->rotation = {0.0f, 0.0f, 0.0f};
+  this->texture = nullptr;
 }
 
-std::string ppObject::getName() {
-  return this->name;
+void ppObject::setIdentifier(std::string identifier) {
+  this->identifier = identifier;
+}
+
+std::string ppObject::getIdentifier() {
+  return this->identifier;
+}
+
+void ppObject::setMesh(ppMesh* mesh) {
+  this->mesh = mesh;
 }
 
 ppMesh* ppObject::getMesh() {
@@ -31,4 +40,16 @@ void ppObject::setRotation(double xRot, double yRot, double zRot) {
 
 std::vector<double> ppObject::getRotation() {
   return this->rotation;
+}
+
+void ppObject::setTexture(GLuint* texture) {
+  this->texture = texture;
+}
+
+GLuint* ppObject::getTexture() {
+  return this->texture;
+}
+
+bool ppObject::isTextured() {
+  return this->texture != nullptr;
 }
