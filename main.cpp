@@ -5,12 +5,14 @@
 #include "ppObject.h"
 #include "ppRenderer.h"
 #include "ppMeshFactory.h"
-#include "tga.h"
+#include "ppTextureLoader.h"
+
 
 int window;
 GLuint texture;
 ppMeshFactory factory;
 ppRenderer renderer;
+ppTextureLoader texLoader;
 
 void resize(int width, int height)
 {
@@ -30,13 +32,14 @@ double zRot = 0.0f;
 double size = 1.0f;
 
 void display() {
+
   // glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   ppObject cube = ppObject("cube", factory.getCubeMesh(1.0f));
   cube.setPosition(Eigen::Vector3d(0.0f, 0.0f, -6.0f));
   cube.setRotation(xRot, yRot, zRot);
-  cube.setTexture(&texture);
+  cube.setTexture(texLoader.getTexture());
 
   renderer.draw(cube);
   glutSwapBuffers();
@@ -84,45 +87,7 @@ void init(int width, int height) {
 
   resize(width, height);
 
-  /* TEXTURE INIT CODE */
-
-  GLsizei w, h;
-  tgaInfo *info = 0;
-  int mode;
-
-  info = tgaLoad("elf.tga");
-
-  if (info->status != TGA_OK) {
-    fprintf(stderr, "error loading texture image: %d\n", info->status);
-
-    return;
-  }
-  if (info->width != info->height) {
-    fprintf(stderr, "Image size %d x %d is not rectangular, giving up.\n",
-            info->width, info->height);
-    return;
-  }
-
-  mode = info->pixelDepth / 8;  // will be 3 for rgb, 4 for rgba
-  glGenTextures(1, &texture);
-
-  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-  glBindTexture(GL_TEXTURE_2D, texture);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-  // Upload the texture bitmap.
-  w  = info->width;
-  h = info->height;
-
-  GLint format = (mode == 4) ? GL_RGBA : GL_RGB;
-  glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format,
-               GL_UNSIGNED_BYTE, info->imageData);
-
-  tgaDestroy(info);
+  texLoader.init();
 }
 
 int main(int argc, char **argv) {

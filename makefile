@@ -1,7 +1,7 @@
 all: main
 
-main: main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o tga.o
-	g++ main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o tga.o -o myApp -lglut -lGLU -lGL
+main: main.o pp3dLib.o ppObject.o ppRenderer.o ppMeshFactory.o tga.o ppTextureLoader.o
+	g++ *.o -o myApp -lglut -lGLU -lGL
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -20,6 +20,9 @@ ppShapeFactory.o: ppMeshFactory.h ppMeshFactory.cpp
 
 tga.o: tga.h tga.cpp
 	g++ -c tga.cpp
+
+ppTextureLoader.o: ppTextureLoader.h ppTextureLoader.cpp
+	g++ -c ppTextureLoader.cpp
 
 run: all
 	./myApp
