@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
   glutInitWindowSize(640, 480);
   glutInitWindowPosition(0, 0);
-  window = glutCreateWindow("Incocknito Headshot's Playground");
+  window = glutCreateWindow("Philip & Philipp Graphics");
 
   // Pass handler functions
   glutDisplayFunc(&display);
