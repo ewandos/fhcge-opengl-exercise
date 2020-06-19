@@ -10,8 +10,8 @@ https://aseigen.tuxfamily.org/index.php?title=Main_Page
 
 ## Functions
 
-* `myApp` (Windows) executes the program
-* `./myApp` (Linux & macOS) executes the program
+* `ppGraphics` (Windows) executes the program
+* `./ppGraphics` (Linux & macOS) executes the program
 * add `-smooth` as starting parameter to start program with smooth-shading
 * while the program is running, press `g` on your keyboard to enable the Translate-Mode
 * while in Translate-Mode press `x`, `y` or `z` to move the cube on the equivalent axis
